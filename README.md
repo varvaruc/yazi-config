@@ -89,6 +89,37 @@ time — that's the point, `m` + a letter is a live switch: `m s` size, `m m` mt
 dark = "tokyo-night"
 ```
 
+### Matched to `tokyonight-moon`
+
+The upstream flavor ships the **night** palette; the Neovim config runs
+`tokyonight-moon`. So `theme.toml` keeps the flavor as the structural base and
+overrides every chrome colour with moon values (taken from
+`tokyonight.nvim/lua/tokyonight/colors/moon.lua`):
+
+| role | night | moon |
+| --- | --- | --- |
+| blue | `#7aa2f7` | `#82aaff` |
+| purple | `#bb9af7` | `#fca7ea` |
+| green | `#9ece6a` | `#c3e88d` |
+| red | `#f7768e` | `#ff757f` |
+| yellow | `#e0af68` | `#ffc777` |
+| cyan | `#7dcfff` | `#86e1fc` |
+| panel bg | `#292e42` | `#1e2030` |
+| mask bg | `#414868` | `#2f334d` |
+
+Every section is written out in full rather than patchily, so the file stays correct
+whether Yazi merges it key-by-key over the flavor or replaces whole tables. The keys
+are validated against the flavor's own schema (no dropped keys, no invented ones).
+
+Two things stay outside this file's reach:
+
+- **Window background.** Yazi doesn't paint it — it inherits the terminal. With a
+  black terminal the chrome is moon-on-black; set the terminal background to
+  `#222436` to make Yazi and Neovim sit on the same surface.
+- **Code previews.** Syntax highlighting comes from the flavor's `tmtheme.xml`
+  (enkia's original, bg `#1d1f29`), not from `theme.toml`. Patching that file is
+  overridden by the next `git pull` of the flavor.
+
 It has to be cloned by hand, and this is the one genuinely annoying part:
 
 ```sh

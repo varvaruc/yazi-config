@@ -1,7 +1,154 @@
 # ~/.config/yazi/theme.toml
-# The flavor itself lives in ~/.config/yazi/flavors/tokyo-night.yazi
-# (cloned manually — `ya pkg add` rejects package names containing a dot)
+#
+# Tokyo Night, matched to `tokyonight-moon` (what the nvim config uses) instead of
+# the flavor's default "night" palette. Palette values come from
+# tokyonight.nvim/lua/tokyonight/colors/moon.lua.
+#
+#    night            moon
+#    #1a1b26  bg    → #222436   (yazi inherits the terminal bg; these are used as fg-on-accent)
+#    #292e42        → #1e2030
+#    #414868        → #2f334d
+#    #626880        → #636da6
+#    #7aa2f7  blue  → #82aaff
+#    #bb9af7  purple→ #fca7ea
+#    #9ece6a  green → #c3e88d
+#    #f7768e  red   → #ff757f
+#    #e0af68  yellow→ #ffc777
+#    #7dcfff  cyan  → #86e1fc
+#    #a9b1d6  fg2   → #828bb8
+#    #c6d0f5  fg    → #c8d3f5
+#
+# Every section below is written out in full, so this file is correct whether yazi
+# merges it key-by-key over the flavor or replaces whole tables.
 
 [flavor]
 dark = "tokyo-night"
-# light = "catppuccin-latte"
+
+[mgr]
+cwd = { fg = "#82aaff" }
+
+# Find
+find_keyword  = { fg = "#ff757f", bold = true, italic = true, underline = true }
+find_position = { fg = "#fca7ea", bg = "reset", bold = true, italic = true }
+
+# Marker
+marker_copied   = { fg = "#c3e88d", bg = "#c3e88d" }
+marker_cut      = { fg = "#ffc777", bg = "#ff757f" }
+marker_marked   = { fg = "#82aaff", bg = "#86e1fc" }
+marker_selected = { fg = "#ffc777", bg = "#ffc777" }
+
+# Count
+count_copied   = { fg = "#1e2030", bg = "#c3e88d" }
+count_cut      = { fg = "#1e2030", bg = "#ffc777" }
+count_selected = { fg = "#1e2030", bg = "#82aaff" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#3b4261" }
+
+[tabs]
+active   = { fg = "#1e2030", bg = "#82aaff", bold = true }
+inactive = { fg = "#82aaff", bg = "#1e2030" }
+
+[mode]
+normal_main = { fg = "#1e2030", bg = "#82aaff", bold = true }
+normal_alt  = { fg = "#82aaff", bg = "#1e2030" }
+
+select_main = { fg = "#1e2030", bg = "#c3e88d", bold = true }
+select_alt  = { fg = "#82aaff", bg = "#1e2030" }
+
+unset_main = { fg = "#1e2030", bg = "#fca7ea", bold = true }
+unset_alt  = { fg = "#82aaff", bg = "#1e2030" }
+
+[status]
+overall = { fg = "#82aaff" }
+sep_left  = { open = "\ue0b6", close = "\ue0b4" }
+sep_right = { open = "\ue0b6", close = "\ue0b4" }
+
+progress_label  = { fg = "#1e2030", bold = true }
+progress_normal = { fg = "#82aaff", bg = "#1e2030" }
+progress_error  = { fg = "#ff757f", bg = "#1e2030" }
+
+perm_sep   = { fg = "#82aaff" }
+perm_type  = { fg = "#c3e88d" }
+perm_read  = { fg = "#ffc777" }
+perm_write = { fg = "#ff757f" }
+perm_exec  = { fg = "#fca7ea" }
+
+[pick]
+border   = { fg = "#82aaff" }
+active   = { fg = "#fca7ea", bold = true }
+inactive = {}
+
+[input]
+border   = { fg = "#82aaff" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+[cmp]
+border = { fg = "#82aaff" }
+
+[tasks]
+border  = { fg = "#82aaff" }
+title   = {}
+hovered = { fg = "#fca7ea", underline = true }
+
+[which]
+mask            = { bg = "#2f334d" }
+cand            = { fg = "#c3e88d" }
+rest            = { fg = "#828bb8" }
+desc            = { fg = "#fca7ea" }
+separator       = " \uea9c "
+separator_style = { fg = "#636da6" }
+
+[help]
+on      = { fg = "#c3e88d" }
+run     = { fg = "#fca7ea" }
+hovered = { reversed = true, bold = true }
+footer  = { fg = "#1e2030", bg = "#828bb8" }
+
+[spot]
+border   = { fg = "#82aaff" }
+title    = { fg = "#82aaff" }
+tbl_col  = { fg = "#c3e88d" }
+tbl_cell = { fg = "#fca7ea", bg = "#1e2030" }
+
+[notify]
+title_info  = { fg = "#c3e88d" }
+title_warn  = { fg = "#ff757f" }
+title_error = { fg = "#ffc777" }
+
+[filetype]
+rules = [
+	# Images
+	{ mime = "image/*", fg = "#ffc777" },
+
+	# Media
+	{ mime = "video/*", fg = "#ff757f" },
+	{ mime = "audio/*", fg = "#ff757f" },
+
+	# Archives
+	{ mime = "application/zip",             fg = "#fca7ea" },
+	{ mime = "application/x-tar",           fg = "#fca7ea" },
+	{ mime = "application/x-bzip*",         fg = "#fca7ea" },
+	{ mime = "application/x-bzip2",         fg = "#fca7ea" },
+	{ mime = "application/x-7z-compressed", fg = "#fca7ea" },
+	{ mime = "application/x-rar",           fg = "#fca7ea" },
+	{ mime = "application/x-xz",            fg = "#fca7ea" },
+
+	# Documents
+	{ mime = "application/doc",      fg = "#c3e88d" },
+	{ mime = "application/epub+zip", fg = "#c3e88d" },
+	{ mime = "application/pdf",      fg = "#c3e88d" },
+	{ mime = "application/rtf",      fg = "#c3e88d" },
+	{ mime = "application/vnd.*",    fg = "#c3e88d" },
+
+	# Special files
+	{ mime = "*", is = "orphan", fg = "#ff757f", bg = "#1e2030" },
+	{ mime = "application/*exec*", fg = "#ff757f" },
+
+	# Fallback
+	{ url = "*", fg = "#c8d3f5" },
+	{ url = "*/", fg = "#82aaff" },
+]
