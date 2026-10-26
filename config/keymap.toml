@@ -1,0 +1,15 @@
+# ~/.config/yazi/keymap.toml
+# Everything not listed here keeps the stock binding — press `~` in yazi for the full list.
+
+[mgr]
+prepend_keymap = [
+	# Enter on a file opens it in the OS app; Enter on a directory enters it.
+	# (`l` stays a plain "enter directory", so nothing surprising happens there.)
+	{ on = "<Enter>", run = "plugin smart-enter", desc = "Enter dir, or open file" },
+
+	# Vim-style f<char>: jump to the next file starting with that character.
+	{ on = "F", run = "plugin jump-to-char", desc = "Jump to file starting with char" },
+
+	# Git status as linemode (requires git.yazi, installed via `ya pkg`)
+	{ on = [ "m", "g" ], run = "linemode git", desc = "Linemode: git status" },
+]

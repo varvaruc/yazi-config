@@ -1,0 +1,12 @@
+# ~/.config/yazi/yazi.toml
+
+[mgr]
+# parent : current : preview  — wider preview, thinner parent column
+ratio = [1, 4, 5]
+show_hidden = true
+# change live with `m` then: s=size p=perms m=mtime b=btime o=owner n=none
+linemode = "mtime"
+
+[preview]
+max_width = 1600
+max_height = 1000
