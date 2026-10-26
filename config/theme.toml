@@ -1,0 +1,7 @@
+# ~/.config/yazi/theme.toml
+# The flavor itself lives in ~/.config/yazi/flavors/tokyo-night.yazi
+# (cloned manually — `ya pkg add` rejects package names containing a dot)
+
+[flavor]
+dark = "tokyo-night"
+# light = "catppuccin-latte"

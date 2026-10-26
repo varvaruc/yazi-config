@@ -51,6 +51,7 @@ Yazi's own `d` (trash) works natively on macOS — no dependency needed.
 | `config/yazi.toml` | pane ratio, hidden files, `mtime` linemode, preview size cap |
 | `config/keymap.toml` | 3 additions on top of the stock keymap |
 | `config/package.toml` | plugin pins (`smart-enter`, `jump-to-char`, `git`) |
+| `config/theme.toml` | selects the `tokyo-night` flavor |
 | `install.sh` | idempotent installer |
 
 ### Config choices, and why
@@ -77,6 +78,36 @@ max_height = 1000
 `linemode = "mtime"` and `m` `g` conflict in the sense that only one is active at a
 time — that's the point, `m` + a letter is a live switch: `m s` size, `m m` mtime,
 `m p` permissions, `m o` owner, `m n` none.
+
+## Theme
+
+[`tokyo-night.yazi`](https://github.com/BennyOe/tokyo-night.yazi) by BennyOe, wired up in
+`theme.toml`:
+
+```toml
+[flavor]
+dark = "tokyo-night"
+```
+
+It has to be cloned by hand, and this is the one genuinely annoying part:
+
+```sh
+git clone --depth 1 https://github.com/BennyOe/tokyo-night.yazi.git \
+  ~/.config/yazi/flavors/tokyo-night.yazi
+```
+
+`ya pkg add BennyOe/tokyo-night.yazi` **fails** with
+`Package name must be in kebab-case`, because the repo name contains a dot. The same
+error kills a manual entry in `package.toml`, so this flavor cannot be pinned there —
+`install.sh` clones it instead, and it is updated with `git -C … pull` rather than
+`ya pkg upgrade`.
+
+Other flavors from `yazi-rs/flavors` *do* work through the package manager, since they
+are subpackages with clean names:
+
+```sh
+ya pkg add yazi-rs/flavors:catppuccin-mocha   # then: dark = "catppuccin-mocha"
+```
 
 ## The shell wrapper
 
@@ -168,6 +199,11 @@ releases. After upgrading Yazi, run `ya pkg upgrade`. If a plugin needs an unrel
 API it will error only when its key is pressed — `ya pkg delete yazi-rs/plugins:<name>`
 removes it. `full-border` is a known example: its current HEAD wants Yazi ≥ 26.10.
 
+**The theme looks half-default.** A flavor is a snapshot of Yazi's theme schema. Keys
+added to Yazi after the flavor's last commit silently fall back to defaults. Tokyo Night
+was last touched Jan 2026; refresh it with
+`git -C ~/.config/yazi/flavors/tokyo-night.yazi pull` and restart Yazi.
+
 **`jq` resolves to `/usr/bin/jq`.** macOS ships one; Homebrew's is shadowed when
 `/usr/bin` comes earlier in `PATH`. Harmless for previews. Fix by moving
 `eval "$(brew shellenv)"` above the system paths.
@@ -184,4 +220,5 @@ expected; it is not a config problem.
 ```sh
 brew upgrade yazi
 ya pkg upgrade
+git -C ~/.config/yazi/flavors/tokyo-night.yazi pull   # flavor is manual, see above
 ```
